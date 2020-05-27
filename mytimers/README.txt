@@ -1,0 +1,3 @@
+Timer de java.util avec fonctionnalités ajoutées telles qu'un nombre limité de répétitions pour 
+une tâche, un accès à la liste des tâches planifiées, au nombre de tâches planifiées, des 
+TimerTask cloneables, un accès au nombre de répétitions restantes, etc ...
