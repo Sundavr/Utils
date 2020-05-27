@@ -1,0 +1,2 @@
+Composants JavaFX avec de nombreuses méthodes ajoutées afin d'en faciliter l'utilisation.
+Par exemple pour ajouter des styles, items, boutons, etc ... directement sans passer par un getter intermédiaire.
