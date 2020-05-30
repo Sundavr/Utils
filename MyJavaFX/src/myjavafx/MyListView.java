@@ -1,6 +1,5 @@
 package myjavafx;
 
-import com.sun.javafx.scene.control.skin.ComboBoxListViewSkin;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -8,53 +7,55 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListView;
 
 /**
- * ComboBox improved.
+ * ListView improved.
  * @author Johan
- * @param <T> ComboBox's items type
- * @see javafx.scene.control.ComboBox
+ * @param <T> ListView's items type
+ * @see javafx.scene.control.ListView
  */
-public class MyComboBox<T> extends ComboBox<T> {
+public class MyListView<T> extends ListView<T> {
     /**
-     * Creates a default ComboBox instance with an empty items list and default selection model.
+     * Creates a default ListView control with no content.
      */
-    public MyComboBox() {
+    public MyListView() {
         super();
     }
     
     /**
-     * Add the given item to the ComboBox.
+     * Add the given item to the ListView.
      * @param item item to add
-     * @throws UnsupportedOperationException if the add operation is not supported by this ComboBox
+     * @throws UnsupportedOperationException if the add operation is not supported by this ListView
      * @throws IllegalArgumentException if some property of this element prevents 
-     * it from being added to this ComboBox
+     * it from being added to this ListView
      * @throws ClassCastException if the class of the specified element prevents 
-     * it from being added to this ComboBox
-     * @throws NullPointerException if the specified element is null and this ComboBox does not permit null elements
+     * it from being added to this ListView
+     * @throws NullPointerException if the specified element is null and this ListView does not permit null elements
      */
     public void add(T item) {
         getItems().add(item);
     }
     
     /**
-     * Inserts the specified element at the specified position in this ComboBox 
+     * Inserts the specified element at the specified position in this ListView 
      * (optional operation). 
      * Shifts the element currently at that position (if any) and any subsequent 
      * elements to the right (adds one to their indices).
      * @param index index at which add the item
      * @param item item to add
-     * @UnsupportedOperationException if the add operation is not supported by this ComboBox
+     * @UnsupportedOperationException if the add operation is not supported by this ListView
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
      * @throws IllegalArgumentException if some property of the specified element 
-     * prevents it from being added to this ComboBox
+     * prevents it from being added to this ListView
      * @throws ClassCastException if the class of the specified element prevents 
-     * it from being added to this ComboBox
+     * it from being added to this ListView
      * @throws NullPointerException if the specified element is null and this 
-     * ComboBox does not permit null elements
+     * ListView does not permit null elements
      */
     public void add(int index, T item) {
         getItems().add(index, item);
@@ -62,21 +63,21 @@ public class MyComboBox<T> extends ComboBox<T> {
     
     /**
      * Appends all of the elements in the specified collection to the end of 
-     * this ComboBox, in the order that they are returned by the specified 
+     * this ListView, in the order that they are returned by the specified 
      * collection's iterator (optional operation). 
      * The behavior of this operation is undefined if the specified collection 
      * is modified while the operation is in progress. 
-     * (Note that this will occur if the specified collection is this ComboBox, and it's nonempty.)
-     * @param collection collection containing elements to be added to this ComboBox
+     * (Note that this will occur if the specified collection is this ListView, and it's nonempty.)
+     * @param collection collection containing elements to be added to this ListView
      * @return <tt>true</tt> if this collection changed as a result of the calltrue 
-     * if this ComboBox changed as a result of the call
-     * @throws UnsupportedOperationException if the addAll operation is not supported by this ComboBox
+     * if this ListView changed as a result of the call
+     * @throws UnsupportedOperationException if the addAll operation is not supported by this ListView
      * @throws IllegalArgumentException if some property of an element of the 
-     * specified collection prevents it from being added to this ComboBox
+     * specified collection prevents it from being added to this ListView
      * @throws ClassCastException if the class of an element of the specified 
-     * collection prevents it from being added to this ComboBox
+     * collection prevents it from being added to this ListView
      * @throws NullPointerException if the specified collection contains one or 
-     * more null elements and this ComboBox does not permit null elements, 
+     * more null elements and this ListView does not permit null elements, 
      * or if the specified collection is null
      */
     public boolean addAll(Collection<? extends T> collection) {
@@ -93,24 +94,24 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Inserts all of the elements in the specified collection into this ComboBox at 
+     * Inserts all of the elements in the specified collection into this ListView at 
      * the specified position (optional operation). Shifts the element currently 
      * at that position (if any) and any subsequent elements to the right (increases their indices). 
-     * The new elements will appear in this ComboBox in the order that they are returned 
+     * The new elements will appear in this ListView in the order that they are returned 
      * by the specified collection's iterator. The behavior of this operation is 
      * undefined if the specified collection is modified while the operation is in progress. 
-     * (Note that this will occur if the specified collection is this ComboBox, and it's nonempty.)
+     * (Note that this will occur if the specified collection is this ListView, and it's nonempty.)
      * @param index index at which to insert the first element from the specified collection
-     * @param collection collection containing elements to be added to this ComboBox
-     * @return <tt>true</tt> if this ComboBox changed as a result of the call
-     * @throws UnsupportedOperationException if the addAll operation is not supported by this ComboBox
+     * @param collection collection containing elements to be added to this ListView
+     * @return <tt>true</tt> if this ListView changed as a result of the call
+     * @throws UnsupportedOperationException if the addAll operation is not supported by this ListView
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
      * @throws IllegalArgumentException if some property of an element of the 
-     * specified collection prevents it from being added to this ComboBox
+     * specified collection prevents it from being added to this ListView
      * @throws ClassCastException if the class of an element of the specified 
-     * collection prevents it from being added to this ComboBox
+     * collection prevents it from being added to this ListView
      * @throws NullPointerException if the specified collection contains one or 
-     * more null elements and this ComboBox does not permit null elements, 
+     * more null elements and this ListView does not permit null elements, 
      * or if the specified collection is null
      */
     public boolean addAll(int index, Collection<? extends T> collection) {
@@ -118,29 +119,29 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Returns true if this ComboBox contains the specified element. 
-     * More formally, returns true if and only if this ComboBox contains at least 
+     * Returns true if this ListView contains the specified element. 
+     * More formally, returns true if and only if this ListView contains at least 
      * one element e such that (item==null ? e==null : item.equals(e)).
-     * @param item item whose presence in this ComboBox is to be tested
+     * @param item item whose presence in this ListView is to be tested
      * @return <tt>true</tt> if this collection contains the specified element
      * @throws ClassCastException if the type of the specified element is 
-     * incompatible with this ComboBox (optional)
+     * incompatible with this ListView (optional)
      * @throws NullPointerException if the specified element is null and this 
-     * ComboBox does not permit null elements (optional)
+     * ListView does not permit null elements (optional)
      */
     public boolean contains(T item) {
         return getItems().contains(item);
     }
     
     /**
-     * Returns <tt>true</tt> if this ComboBox contains all of the elements of the specified collection.
-     * @param collection collection to be checked for containment in this ComboBox
+     * Returns <tt>true</tt> if this ListView contains all of the elements of the specified collection.
+     * @param collection collection to be checked for containment in this ListView
      * @return <tt>true</tt> if this collection contains all of the elements in 
      * the specified collection
      * @throws ClassCastException if the types of one or more elements in the 
-     * specified collection are incompatible with this ComboBox (optional)
+     * specified collection are incompatible with this ListView (optional)
      * @throws NullPointerException if the specified collection contains one or 
-     * more null elements and this ComboBox does not permit null elements (optional), 
+     * more null elements and this ListView does not permit null elements (optional), 
      * or if the specified collection is null
      */
     public boolean containsAll(Collection<?> collection) {
@@ -148,7 +149,7 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Creates a FilteredList wrapper of this ComboBox using the specified predicate.
+     * Creates a FilteredList wrapper of this ListView using the specified predicate.
      * @param predicate the predicate to use 
      * @return new FilteredList
      * @since JavaFX 8.0
@@ -172,9 +173,9 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Returns the element at the specified position in this ComboBox.
+     * Returns the element at the specified position in this ListView.
      * @param index index of the element to return 
-     * @return the element at the specified position in this ComboBox
+     * @return the element at the specified position in this ListView
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public T get(int index) {
@@ -183,32 +184,32 @@ public class MyComboBox<T> extends ComboBox<T> {
 
     /**
      * Returns the index of the first occurrence of the specified element in 
-     * this ComboBox, or -1 if this ComboBox does not contain the element. 
+     * this ListView, or -1 if this ListView does not contain the element. 
      * More formally, returns the lowest index i such that 
      * (item==null ? get(i)==null : item.equals(get(i))), or -1 if there is no such index.
      * @param item element to search for
-     * @return the index of the first occurrence of the specified element in this ComboBox, 
-     * or -1 if this ComboBox does not contain the element
+     * @return the index of the first occurrence of the specified element in this ListView, 
+     * or -1 if this ListView does not contain the element
      * @throws ClassCastException if the type of the specified element is 
-     * incompatible with this ComboBox (optional)
+     * incompatible with this ListView (optional)
      * @throws NullPointerException if the specified element is null and this 
-     * ComboBox does not permit null elements (optional)
+     * ListView does not permit null elements (optional)
      */
     public int indexOf(T item) {
         return getItems().indexOf(item);
     }
     
     /**
-     * Returns true if this ComboBox contains no elements.
-     * @return <tt>true</tt> if this ComboBox contains no elements
+     * Returns true if this ListView contains no elements.
+     * @return <tt>true</tt> if this ListView contains no elements
      */
     public boolean isEmpty() {
         return getItems().isEmpty();
     }
     
     /**
-     * Returns an iterator over the elements in this ComboBox in proper sequence.
-     * @return an iterator over the elements in this ComboBox in proper sequence
+     * Returns an iterator over the elements in this ListView in proper sequence.
+     * @return an iterator over the elements in this ListView in proper sequence
      */
     public Iterator<T> iterator() {
         return getItems().iterator();
@@ -227,34 +228,34 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Removes the first occurrence of the specified element from this ComboBox, 
+     * Removes the first occurrence of the specified element from this ListView, 
      * if it is present (optional operation). 
-     * If this ComboBox does not contain the element, it is unchanged. 
+     * If this ListView does not contain the element, it is unchanged. 
      * More formally, removes the element with the lowest index i such that 
      * (item==null ? get(i)==null : item.equals(get(i))) 
      * (if such an element exists). 
-     * Returns true if this ComboBox contained the specified element 
-     * (or equivalently, if this ComboBox changed as a result of the call).
-     * @param item element to be removed from this ComboBox, if present
+     * Returns true if this ListView contained the specified element 
+     * (or equivalently, if this ListView changed as a result of the call).
+     * @param item element to be removed from this ListView, if present
      * @return true if an element was removed as a result of this call
      * @throws UnsupportedOperationException if the remove operation is not 
-     * supported by this ComboBox
+     * supported by this ListView
      * @throws ClassCastException if the type of the specified element is 
-     * incompatible with this ComboBox (optional)
+     * incompatible with this ListView (optional)
      * @throws NullPointerException if the specified element is null and 
-     * this ComboBox does not permit null elements (optional)
+     * this ListView does not permit null elements (optional)
      */
     public boolean remove(T item) {
         return getItems().remove(item);
     }
     
     /**
-     * Removes the element at the specified position in this ComboBox (optional operation). 
+     * Removes the element at the specified position in this ListView (optional operation). 
      * Shifts any subsequent elements to the left (subtracts one from their indices). 
-     * Returns the element that was removed from the ComboBox.
+     * Returns the element that was removed from the ListView.
      * @param index the index of the element to be removed
      * @return the element previously at the specified position
-     * @throws UnsupportedOperationException if the remove operation is not supported by this ComboBox
+     * @throws UnsupportedOperationException if the remove operation is not supported by this ListView
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public T remove(int index) {
@@ -272,9 +273,9 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Removes from this ComboBox all of its elements that are contained in the 
+     * Removes from this ListView all of its elements that are contained in the 
      * specified collection (optional operation).
-     * @param collection collection containing elements to be removed from this ComboBox
+     * @param collection collection containing elements to be removed from this ListView
      * @return <tt>true</tt> if this collection changed as a result of the call
      */
     public boolean removeAll(Collection<?> collection) {
@@ -284,7 +285,7 @@ public class MyComboBox<T> extends ComboBox<T> {
     /**
      * A convenient method for var-arg usage of removaAll method.
      * @param elements the elements to be removed
-     * @return <tt>true</tt> if ComboBox changed as a result of this call
+     * @return <tt>true</tt> if ListView changed as a result of this call
      */
     public boolean removeAll(T... elements) {
         return getItems().removeAll(elements);
@@ -307,15 +308,15 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Replaces each element of this ComboBox with the result of applying the 
+     * Replaces each element of this ListView with the result of applying the 
      * operator to that element. 
      * Errors or runtime exceptions thrown by the operator are relayed to the caller.
      * @param operator the operator to apply to each element
-     * @throws UnsupportedOperationException if this ComboBox is unmodifiable. 
+     * @throws UnsupportedOperationException if this ListView is unmodifiable. 
      * Implementations may throw this exception if an element cannot be replaced 
      * or if, in general, modification is not supported
      * @throws NullPointerException if the specified operator is null or if the 
-     * operator result is a null value and this ComboBox does not permit null elements 
+     * operator result is a null value and this ListView does not permit null elements 
      * (optional) 
      * @since 1.8
      */
@@ -324,17 +325,17 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Retains only the elements in this ComboBox that are contained in the 
+     * Retains only the elements in this ListView that are contained in the 
      * specified collection (optional operation). 
-     * In other words, removes from this ComboBox all of its elements that are not 
+     * In other words, removes from this ListView all of its elements that are not 
      * contained in the specified collection.
-     * @param collection collection containing elements to be retained in this ComboBox
+     * @param collection collection containing elements to be retained in this ListView
      * @return <tt>true</tt> if this collection changed as a result of the call
      * @throws UnsupportedOperationException if the retainAll operation is not 
-     * supported by this ComboBox
-     * @throws ClassCastException if the class of an element of this ComboBox is 
+     * supported by this ListView
+     * @throws ClassCastException if the class of an element of this ListView is 
      * incompatible with the specified collection (optional)
-     * @throws NullPointerException if this ComboBox contains a null element and the 
+     * @throws NullPointerException if this ListView contains a null element and the 
      * specified collection does not permit null elements (optional), 
      * or if the specified collection is null
      */
@@ -345,26 +346,26 @@ public class MyComboBox<T> extends ComboBox<T> {
     /**
      * A convenient method for var-arg usage of retain method.
      * @param elements the elements to be retained 
-     * @return <tt>true</tt> if ComboBox changed as a result of this call
+     * @return <tt>true</tt> if ListView changed as a result of this call
      */
     public boolean retainAll(T... elements) {
         return getItems().retainAll(elements);
     }
     
     /**
-     * Replaces the element at the specified position in this ComboBox with the 
+     * Replaces the element at the specified position in this ListView with the 
      * specified element (optional operation).
      * @param index index of the element to replace
      * @param element element to be stored at the specified position
      * @return the element previously at the specified position
-     * @throws UnsupportedOperationException if the set operation is not supported by this ComboBox
+     * @throws UnsupportedOperationException if the set operation is not supported by this ListView
      * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      * @throws IllegalArgumentException if some property of the specified 
-     * element prevents it from being added to this ComboBox
+     * element prevents it from being added to this ListView
      * @throws ClassCastException if the class of the specified element prevents 
-     * it from being added to this ComboBox
+     * it from being added to this ListView
      * @throws NullPointerException if the specified element is null and this 
-     * ComboBox does not permit null elements
+     * ListView does not permit null elements
      */
     public T set(int index, T element) {
         return getItems().set(index, element);
@@ -372,7 +373,7 @@ public class MyComboBox<T> extends ComboBox<T> {
     
     /**
      * Clears the ObservableList and add all elements from the collection.
-     * @param collection the collection with elements that will be added to this ComboBox
+     * @param collection the collection with elements that will be added to this ListView
      * @return <tt>true</tt> (as specified by Collection.add(T))
      */
     public boolean setAll(Collection<? extends T> collection) {
@@ -390,29 +391,29 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Returns the number of elements in this ComboBox. 
-     * If this ComboBox contains more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE.
-     * @return the number of elements in this ComboBox
+     * Returns the number of elements in this ListView. 
+     * If this ListView contains more than Integer.MAX_VALUE elements, returns Integer.MAX_VALUE.
+     * @return the number of elements in this ListView
      */
     public int size() {
         return getItems().size();
     }
     
     /**
-     * Sorts this ComboBox according to the order induced by the specified Comparator.
-     * All elements in this ComboBox must be mutually comparable using the specified 
+     * Sorts this ListView according to the order induced by the specified Comparator.
+     * All elements in this ListView must be mutually comparable using the specified 
      * comparator (that is, c.compare(e1, e2) must not throw a ClassCastException 
-     * for any elements e1 and e2 in the ComboBox).
-     * If the specified comparator is null then all elements in this ComboBox must implement 
+     * for any elements e1 and e2 in the ListView).
+     * If the specified comparator is null then all elements in this ListView must implement 
      * the Comparable interface and the elements' natural ordering should be used.
-     * This ComboBox must be modifiable, but need not be resizable.
-     * @param comparator the Comparator used to compare ComboBox elements. 
+     * This ListView must be modifiable, but need not be resizable.
+     * @param comparator the Comparator used to compare ListView elements. 
      * A null value indicates that the elements' natural ordering should be used
-     * @throws UnsupportedOperationException if the ComboBox's list-iterator does 
+     * @throws UnsupportedOperationException if the ListView's list-iterator does 
      * not support the set operation
      * @throws IllegalArgumentException (optional) if the comparator is found 
      * to violate the Comparator contract
-     * @throws ClassCastException if the ComboBox contains elements that are not 
+     * @throws ClassCastException if the ListView contains elements that are not 
      * mutually comparable using the specified comparator
      * @since 1.8
      */
@@ -421,7 +422,7 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Creates a SortedList wrapper of this ComboBox with the natural ordering.
+     * Creates a SortedList wrapper of this ListView with the natural ordering.
      * @return new SortedList
      * @since JavaFX 8.0
      */
@@ -430,8 +431,8 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Creates a SortedList wrapper of this ComboBox using the specified comparator.
-     * @param comparator the comparator to use or null for unordered ComboBox
+     * Creates a SortedList wrapper of this ListView using the specified comparator.
+     * @param comparator the comparator to use or null for unordered ListView
      * @return new SortedList
      * @since JavaFX 8.0
      */
@@ -444,7 +445,7 @@ public class MyComboBox<T> extends ComboBox<T> {
      * This method should be overridden when the spliterator() method cannot 
      * return a spliterator that is IMMUTABLE, CONCURRENT, or late-binding. 
      * (See spliterator() for details.)
-     * @return a sequential Stream over the elements in this ComboBox
+     * @return a sequential Stream over the elements in this ListView
      * @since 1.8
      */
     public Stream<T> stream() {
@@ -452,32 +453,32 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Returns an array containing all of the elements in this ComboBox in proper 
+     * Returns an array containing all of the elements in this ListView in proper 
      * sequence (from first to last element).
      * The returned array will be "safe" in that no references to it are 
-     * maintained by this ComboBox. 
-     * (In other words, this method must allocate a new array even if this ComboBox is backed by an array). 
+     * maintained by this ListView. 
+     * (In other words, this method must allocate a new array even if this ListView is backed by an array). 
      * The caller is thus free to modify the returned array.
      * This method acts as bridge between array-based and collection-based APIs.
-     * @return an array containing all of the elements in this ComboBox in proper sequence
+     * @return an array containing all of the elements in this ListView in proper sequence
      */
     public T[] toArray() {
         return (T[])getItems().toArray();
     }
     
     /**
-     * Returns an array containing all of the elements in this ComboBox in proper 
+     * Returns an array containing all of the elements in this ListView in proper 
      * sequence (from first to last element); 
      * the runtime type of the returned array is that of the specified array. 
-     * If the ComboBox fits in the specified array, it is returned therein. 
+     * If the ListView fits in the specified array, it is returned therein. 
      * Otherwise, a new array is allocated with the runtime type of the specified 
-     * array and the size of this ComboBox.
-     * @param dest the array into which the elements of this ComboBox are to be stored, if it 
+     * array and the size of this ListView.
+     * @param dest the array into which the elements of this ListView are to be stored, if it 
      * is big enough; otherwise, a new array of the same runtime type is allocated for this purpose.
      * @return an array containing all of the elements in this collectionan array 
-     * containing the elements of this ComboBox
+     * containing the elements of this ListView
      * @throws ArrayStoreException if the runtime type of the specified array is 
-     * not a supertype of the runtime type of every element in this ComboBox
+     * not a supertype of the runtime type of every element in this ListView
      * @throws NullPointerException if the specified array is null
      */
     public T[] toArray(T[] dest) {
@@ -485,11 +486,21 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Returns the currently selected object (which resides in the selected index position). 
-     * If there are multiple items selected, this will return the object contained 
-     * at the index returned by getSelectedIndex()
-     * (which is always the index to the most recently selected item).
-     * @return the currently selected object
+     * Returns the currently selected object (which resides in the selected index
+     * position).If there are multiple items selected, this will return the 
+     * object contained at the index returned by getSelectedIndex() (which is 
+     * always the index to the most recently selected item).
+     * 
+     * <p>Note that the returned value is a snapshot in time - if you wish to
+     * observe the selection model for changes to the selected item, you can
+     * add a ChangeListener as such:
+     *
+     * <pre><code>
+     * SelectionModel sm = ...;
+     * InvalidationListener listener = ...;
+     * sm.selectedItemProperty().addListener(listener);
+     * </code></pre>
+     * @return the currently selected item
      */
     public T getSelectedItem() {
         return getSelectionModel().getSelectedItem();
@@ -498,20 +509,10 @@ public class MyComboBox<T> extends ComboBox<T> {
     /**
      * Returns the integer value indicating the currently selected index in this model. 
      * If there are multiple items selected, this will return the most recent selection made.
-     * @return the integer value indicating the currently selected index
+     * @return the currently selected index
      */
     public int getSelectedIndex() {
         return getSelectionModel().getSelectedIndex();
-    }
-    
-    /**
-     * Selects the index for the first instance of given object in the underlying data model. 
-     * Since the SingleSelectionModel can only support having a single index selected at a time, 
-     * this also causes any previously selected index to be unselected.
-     * @param item new item to be selected
-     */
-    public void setSelectedItem(T item) {
-        this.getSelectionModel().select(item);
     }
     
     /**
@@ -523,27 +524,11 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * In the SingleSelectionModel, this method is functionally equivalent to 
-     * calling select(index), as only one selection is allowed at a time.
-     * @param index index to select
+     * Select the given item.
+     * @param item item to select
      */
-    public void clearAndSelect(int index) {
-        getSelectionModel().clearAndSelect(index);
-    }
-    
-    /**
-     * Clears the selection model of all selected indices.
-     */
-    public void clearSelection() {
-       getSelectionModel().clearSelection();
-    }
-    
-    /**
-     * Clears the selection of the given index, if it is currently selected.
-     * @param index the index to be unselect
-     */
-    public void clearSelection(int index) {
-        getSelectionModel().clearSelection(index);
+    public void setSelectedItem(T item) {
+        getSelectionModel().select(item);
     }
     
     /**
@@ -556,9 +541,8 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * This method will return true if the given index is the currently selected 
-     * index in the SingleSelectionModel.
-     * @param index The index to check as to whether it is currently selected or not
+     * Convenience method to inform if the given index is currently selected in this SelectionModel. Is functionally equivalent to calling getSelectedIndices().contains(index).
+     * @param index the index to check as to whether it is currently selected or not. 
      * @return <tt>true</tt> if the given index is selected, <tt>false</tt> otherwise.
      */
     public boolean isSelected(int index) {
@@ -566,29 +550,46 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Selects the index for the first instance of given object in the underlying data model. 
-     * Since the SingleSelectionModel can only support having a single index selected at a time, 
-     * this also causes any previously selected index to be unselected.
-     * @param item new item to be selected
+     * This method will attempt to select the index that contains the given object. 
+     * It will iterate through the underlying data model until it finds an item 
+     * whose value is equal to the given object. 
+     * At this point it will stop iterating - this means that this method will not select multiple indices.
+     * @param obj The object to attempt to select in the underlying data model.
      */
-    public void select(T item) {
-        getSelectionModel().select(item);
+    public void select(T obj) {
+        getSelectionModel().select(obj); 
     }
     
     /**
-     * Selects the given index. 
-     * Since the SingleSelectionModel can only support having a single index selected 
-     * at a time, this also causes any previously selected index to be unselected.
-     * @param index index to select
+     * This will select the given index in the selection model, assuming the index 
+     * is within the valid range (i.e. greater than or equal to zero, and less than 
+     * the total number of items in the underlying data model).
+     * If there is already one or more indices selected in this model, calling this method 
+     * will not clear these selections - to do so it is necessary to first call clearSelection().
+     * If the index is already selected, it will not be selected again, or unselected. 
+     * However, if multiple selection is implemented, then calling select on an 
+     * already selected index will have the effect of making the index the new 
+     * selected index (as returned by getSelectedIndex().
+     * @param index - The position of the item to select in the selection model.
      */
     public void select(int index) {
-        getSelectionModel().select(index);
+        getSelectionModel().select(index); 
     }
     
     /**
-     * Selects the first index.
-     * Since the SingleSelectionModel can only support having a single index selected 
-     * at a time, this also causes any previously selected index to be unselected.
+     * Convenience method to select all available indices.
+     */
+    public void selectAll() {
+        getSelectionModel().selectAll();
+    }
+    
+    /**
+     * This method will attempt to select the first index in the control. 
+     * If clearSelection is not called first, this method will have the result 
+     * of selecting the first index, whilst retaining the selection of any 
+     * other currently selected indices.
+     * If the first index is already selected, calling this method will have no result, 
+     * and no selection event will take place.
      */
     public void selectFirst() {
         getSelectionModel().selectFirst();
@@ -637,30 +638,104 @@ public class MyComboBox<T> extends ComboBox<T> {
     }
     
     /**
-     * Selects the last index. 
-     * Since the SingleSelectionModel can only support having a single index selected 
-     * at a time, this also causes any previously selected index to be unselected.
+     * This method allows for one or more selections to be set at the same time. 
+     * It will ignore any value that is not within the valid range 
+     * (i.e. greater than or equal to zero, and less than the total number of items 
+     * in the underlying data model). Any duplication of indices will be ignored.
+     * If there is already one or more indices selected in this model, calling this method 
+     * will not clear these selections - to do so it is necessary to first call clearSelection.
+     * The last valid value given will become the selected index / selected item.
+     * @param row row to select
+     * @param rows rows to select
+     */
+    public void selectIndices(int row, int... rows) {
+        getSelectionModel().selectIndices(row, rows);
+    }
+    
+    /**
+     * This method will attempt to select the last index in the control. 
+     * If clearSelection is not called first, this method will have the result 
+     * of selecting the last index, whilst retaining the selection of any other 
+     * currently selected indices.
+     * If the last index is already selected, calling this method will have no result, 
+     * and no selection event will take place.
      */
     public void selectLast() {
         getSelectionModel().selectLast();
     }
     
     /**
-     * Selects the next index. 
-     * Since the SingleSelectionModel can only support having a single index selected 
-     * at a time, this also causes any previously selected index to be unselected.
+     * <p>This method will attempt to select the index directly after the current
+     * focused index. If clearSelection is not called first, this method
+     * will have the result of selecting the next index, whilst retaining
+     * the selection of any other currently selected indices.</p>
+     *
+     * <p>Calling this method will only succeed if:</p>
+     *
+     * <ul>
+     *   <li>There is currently a lead/focused index.
+     *   <li>The lead/focus index is not the last index in the control.
+     *   <li>The next index is not already selected.
+     * </ul>
+     *
+     * <p>If any of these conditions is false, no selection event will take
+     * place.</p>
      */
     public void selectNext() {
         getSelectionModel().selectNext();
     }
     
     /**
-     * Selects the previous index. 
-     * Since the SingleSelectionModel can only support having a single index selected 
-     * at a time, this also causes any previously selected index to be unselected.
+     * <p>This method will attempt to select the index directly before the current
+     * focused index. If clearSelection is not called first, this method
+     * will have the result of selecting the previous index, whilst retaining
+     * the selection of any other currently selected indices.</p>
+     *
+     * <p>Calling this method will only succeed if:</p>
+     *
+     * <ul>
+     *   <li>There is currently a lead/focused index.
+     *   <li>The lead/focus index is not the first index in the control.
+     *   <li>The previous index is not already selected.
+     * </ul>
+     *
+     * <p>If any of these conditions is false, no selection event will take
+     * place.</p>
      */
     public void selectPrevious() {
         getSelectionModel().selectPrevious();
+    }
+    
+    /**
+     * <p>Selects all indices from the given start index to the item before the
+     * given end index. This means that the selection is inclusive of the start
+     * index, and exclusive of the end index. This method will work regardless
+     * of whether start < end or start > end: the only constant is that the
+     * index before the given end index will become the selected index.
+     *
+     * <p>If there is already one or more indices selected in this model, calling
+     * this method will <b>not</b> clear these selections - to do so it is
+     * necessary to first call clearSelection.
+     *
+     * @param start The first index to select - this index will be selected.
+     * @param end The last index of the selection - this index will not be selected.
+     */
+    public void selectRange(int start, int end) {
+        getSelectionModel().selectRange(start, end);
+    }
+    
+    /**
+     * Refers to the selected index property, which is used to indicate the 
+     * currently selected index value in the selection model. 
+     * The selected index is either -1, to represent that there is no selection, 
+     * or an integer value that is within the range of the underlying data model size.
+     * The selected index property is most commonly used when the selection model only 
+     * allows single selection, but is equally applicable when in multiple selection mode. 
+     * When in this mode, the selected index will always represent the last selection made.
+     * @return the selected index property
+     */
+    public ReadOnlyIntegerProperty selectedIndexProperty() {
+        return getSelectionModel().selectedIndexProperty();
     }
     
     /**
@@ -668,25 +743,24 @@ public class MyComboBox<T> extends ComboBox<T> {
      * @param index index to focus
      */
     public void focus(int index) {
-        ((ComboBoxListViewSkin)getSkin()).getListView().getFocusModel().focus(index);
+        getFocusModel().focus(index);
     }
     
     /**
-     * Scroll to the given index.
-     * @param index index to scroll to
+     * Refers to the selected item property, which is used to indicate the 
+     * currently selected item in the selection model. 
+     * The selected item is either null, to represent that there is no selection, 
+     * or an Object that is retrieved from the underlying data model of the 
+     * control the selection model is associated with.
+     * The selected item property is most commonly used when the selection model is set 
+     * to be single selection, but is equally applicable when in multiple selection mode. 
+     * When in this mode, the selected item will always represent the last selection made.
+     * @return the selected item property
      */
-    public void scrollTo(int index) {
-        ((ComboBoxListViewSkin)getSkin()).getListView().scrollTo(index);
+    public ReadOnlyObjectProperty<T> selectedItemProperty() {
+        return getSelectionModel().selectedItemProperty();
     }
-    
-    /**
-     * Scroll to the given item.
-     * @param item item to scroll to
-     */
-    public void scrollTo(T item) {
-        ((ComboBoxListViewSkin)getSkin()).getListView().scrollTo(item);
-    }
-    
+
     /**
      * Add the given style to this ComboBox's style. This method have 
      * no effect if the ComboBox already have the given style.

@@ -5,7 +5,7 @@ package taskscheduler;
  * @author JOHAN
  */
 public enum Language {
-    FR("FR"), ENG("ENG");
+    FR("FR"), EN("EN");
     
     //nom du langage
     private final String name;

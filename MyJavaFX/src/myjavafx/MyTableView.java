@@ -511,6 +511,15 @@ public class MyTableView<T> extends TableView<T> {
     }
     
     /**
+     * Returns the integer value indicating the currently selected index in this model. 
+     * If there are multiple items selected, this will return the most recent selection made.
+     * @return the currently selected index
+     */
+    public int getSelectedIndex() {
+        return getSelectionModel().getSelectedIndex();
+    }
+    
+    /**
      * Select the given index.
      * @param index index to select
      */
@@ -566,11 +575,11 @@ public class MyTableView<T> extends TableView<T> {
     }
     
     /**
-     * Focus the given row.
-     * @param row row to focus
+     * Focus the given index.
+     * @param index index to focus
      */
-    public void focus(int row) {
-        getSelectionModel().focus(row);
+    public void focus(int index) {
+        getFocusModel().focus(index);
     }
     
     /**
@@ -666,6 +675,48 @@ public class MyTableView<T> extends TableView<T> {
      */
     public void selectFirst() {
         getSelectionModel().selectFirst();
+    }
+    
+    /**
+     * Select the first item starting with the given String ignoring case, 
+     * this method is based on the toString() method.
+     * No effect if there is no item matching.
+     * @param prefix the prefix of the item to select
+     */
+    public void selectFirstStartingWith(String prefix) {
+        for (int i=0; i<size(); i++) {
+            if (get(i).toString().toLowerCase().startsWith(prefix.toLowerCase())
+             || get(i).toString().toUpperCase().startsWith(prefix.toUpperCase())) {
+                select(i);
+                scrollTo(i);
+                return;
+            }
+        }
+    }
+    
+    /**
+     * Select the first item starting with the given String ignoring case, 
+     * this method is based on the toString() method.
+     * No effect if there is no item matching.
+     * @param prefix the prefix of the item to select
+     */
+    public void selectNextStartingWith(String prefix) {
+        for (int i=getSelectedIndex()+1; i<size(); i++) {
+            if (get(i).toString().toLowerCase().startsWith(prefix.toLowerCase())
+             || get(i).toString().toUpperCase().startsWith(prefix.toUpperCase())) {
+                select(i);
+                scrollTo(i);
+                return;
+            }
+        }
+        for (int i=0; i<getSelectedIndex()+1; i++) {
+            if (get(i).toString().toLowerCase().startsWith(prefix.toLowerCase())
+             || get(i).toString().toUpperCase().startsWith(prefix.toUpperCase())) {
+                select(i);
+                scrollTo(i);
+                return;
+            }
+        }
     }
     
     /**
