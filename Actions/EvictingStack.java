@@ -48,9 +48,9 @@ public class EvictingStack<E> extends Stack<E> {
     }
     
     /**
-     * Enleve les elements en bas de la pile tant que le taille de la pile 
-     * excede la taille maximale.
-     * @return le dernier element enleve
+     * Remove the elemements from the bottom of the stack while it excede the 
+     * maximal size.
+     * @return the last removed element
      */
     private E evict() {
         E evictedItem = null;

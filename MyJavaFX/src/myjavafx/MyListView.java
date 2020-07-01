@@ -9,6 +9,7 @@ import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.ListView;
@@ -252,13 +253,14 @@ public class MyListView<T> extends ListView<T> {
     /**
      * Removes the element at the specified position in this ListView (optional operation). 
      * Shifts any subsequent elements to the left (subtracts one from their indices). 
-     * Returns the element that was removed from the ListView.
+     * Returns the element that was removed from the ListView. 
+     * Return null if the index is out of bounds.
      * @param index the index of the element to be removed
      * @return the element previously at the specified position
      * @throws UnsupportedOperationException if the remove operation is not supported by this ListView
-     * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index >= size())
      */
     public T remove(int index) {
+        if ((index < 0) || (index >= size())) return null;
         return getItems().remove(index);
     }
     
@@ -507,6 +509,22 @@ public class MyListView<T> extends ListView<T> {
     }
     
     /**
+     * Selects the given item.
+     * @param item item to select
+     */
+    public void setSelectedItem(T item) {
+        getSelectionModel().select(item);
+    }
+    
+    /**
+     * Removes and returns the selected item.
+     * @return <tt>true</tt> if an item was removed as a result of this call
+     */
+    public boolean removeSelectedItem() {
+        return remove(getSelectedItem());
+    }
+    
+    /**
      * Returns the integer value indicating the currently selected index in this model. 
      * If there are multiple items selected, this will return the most recent selection made.
      * @return the currently selected index
@@ -516,7 +534,7 @@ public class MyListView<T> extends ListView<T> {
     }
     
     /**
-     * Select the given index.
+     * Selects the given index.
      * @param index index to select
      */
     public void setSelectedIndex(int index) {
@@ -524,11 +542,21 @@ public class MyListView<T> extends ListView<T> {
     }
     
     /**
-     * Select the given item.
-     * @param item item to select
+     * Removes and returns the item at the selected index.
+     * @return the item previously at the selected position
      */
-    public void setSelectedItem(T item) {
-        getSelectionModel().select(item);
+    public T removeSelectedIndex() {
+        return remove(getSelectionModel().getSelectedIndex());
+    }
+    
+    /**
+     * Add the given listener to the SelectionModel's ItemProperty.
+     * @param listener The listener to register
+     * @throws NullPointerException if the listener is null
+     * @see javafx.beans.value.ObservableValue#addListener(javafx.beans.value.ChangeListener)
+     */
+    public void addSelectionListener(ChangeListener<? super T> listener) {
+        getSelectionModel().selectedItemProperty().addListener(listener);
     }
     
     /**

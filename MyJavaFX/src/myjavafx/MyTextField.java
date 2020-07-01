@@ -9,22 +9,42 @@ import javafx.scene.control.TextField;
  * @see javafx.scene.control.TextField
  */
 public class MyTextField extends TextField {
+    private boolean allowPaste;
+    
     /**
      * Creates a TextField with empty text content.
      */
     public MyTextField() {
         super();
+        this.allowPaste = true;
+    }
+    
+    /**
+     * Authorize or not to paste text in this TextField.
+     * @param allow <tt>true</tt> if the user is allow to paste any text in this TextField
+     */
+    public void allowPaste(boolean allow) {
+        this.allowPaste = allow;
+    }
+    
+    @Override()
+    public void paste() {
+        if (this.allowPaste) super.paste();
     }
     
     /**
      * Replaces each substring of this TextField's text that matches the given 
      * regular expression with the given replacement.
+     * The carret position remain the same.
      * @param regex the regular expression to which this string is to be matched
      * @param replacement the string to be substituted for each match
      * @see String#replaceAll(String, String) 
      */
     public void replaceAll(String regex, String replacement) {
+        int caretPosition = getCaretPosition();
+        String oldText = getText();
         setText(getText().replaceAll(regex, replacement));
+        positionCaret(caretPosition-(oldText.length()-getText().length()));
     }
     
     /**
@@ -52,7 +72,33 @@ public class MyTextField extends TextField {
     public boolean matches(String regex) {
         return getText().matches(regex);
     }
-
+    
+    /**
+     * If the text can be interpret as an Integer, returns his int value.
+     * Otherwise returns 0.
+     * @return the integer value of the text, 0 if it's not an integer
+     */
+    public int getInt() {
+        try {
+            return Integer.parseInt(getText());
+        } catch (NumberFormatException nfe) {
+            return 0;
+        }
+    }
+    
+    /**
+     * If the prompt text can be interpret as an Integer, returns his int value.
+     * Otherwise returns 0.
+     * @return the integer value of the text, 0 if it's not an integer
+     */
+    public int getPromptInt() {
+        try {
+            return Integer.parseInt(getPromptText());
+        } catch (NumberFormatException nfe) {
+            return 0;
+        }
+    }
+    
     /**
      * Add the given style to this ComboBox's style. This method have 
      * no effect if the ComboBox already have the given style.
